@@ -1,6 +1,7 @@
 import warnings
 warnings.filterwarnings('ignore')
 import os
+import sklearn.preprocessing
 
 import numpy as np
 import pandas as pd
@@ -104,3 +105,25 @@ def wrangle_zillow():
 
     #return exploration dfs
     return train, validate, test
+
+
+
+def scale_data(train, validate, test, quant_vars):
+    #create the object
+    scaler = sklearn.preprocessing.RobustScaler()
+
+    #fit the object
+    scaler.fit(train[quant_vars])
+
+    #use the object
+    train_scaled = scaler.transform(train[quant_vars])
+    validate_scaled = scaler.transform(validate[quant_vars])
+    test_scaled = scaler.transform(test[quant_vars])
+
+    #add columns
+    train[['tenure_scaled', 'monthly_charges_scaled', 'total_charges_scaled']] = train_scaled
+    validate[['tenure_scaled', 'monthly_charges_scaled', 'total_charges_scaled']] = validate_scaled
+    test[['tenure_scaled', 'monthly_charges_scaled', 'total_charges_scaled']] = test_scaled
+
+    return train, validate, test
+    
