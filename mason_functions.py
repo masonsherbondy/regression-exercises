@@ -1,7 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-
 
 
 #1
@@ -18,7 +14,6 @@ def is_two(x):
         return False
 
 is_two('2')
-
 
 
 
@@ -40,7 +35,6 @@ is_vowel('A')
 
 
 
-
 #3
 #is_consonant defines a single parameter, x (string of one character), and returns a Boolean True or False
 def is_consonant(x):
@@ -53,7 +47,6 @@ def is_consonant(x):
         return False
     
 is_consonant('B')
-
 
 
 
@@ -75,7 +68,6 @@ capitalize_consonant_words('success')
 
 
 
-
 #5
 #calculate_tip defines two parameters, a float and another float, and returns a float value
 def calculate_tip(percentage, bill):
@@ -89,7 +81,6 @@ calculate_tip(.22, 18.24)
 
 
 
-
 #6 
 #apply_discount defines two parameters, two floats, and returns a float value
 def apply_discount(price, disc):
@@ -97,7 +88,6 @@ def apply_discount(price, disc):
     return round(price * (1 - disc), 2)
 
 apply_discount(24.99, .8)
-
 
 
 
@@ -119,7 +109,6 @@ def handle_commas(string):
     return float(c_handled)
 
 handle_commas('12,345,678.9')
-
 
 
 
@@ -147,7 +136,6 @@ get_letter_grade(69)
 
 
 
-
 #9
 #remove_vowels determines a single parameter, a string, and returns a string
 def remove_vowels(string):
@@ -166,11 +154,10 @@ remove_vowels('Nnnnooooooooooo!!!!')
 
 
 
-
 #10
 #normalize_name defines a single parameter, a string, and returns a string value
 def normalize_name(string):
-    #python identifiers cannot start with numbers. Loop through string until first character of string is not 
+    #python identifiers can not start with numbers. Loop through string until first character of string is not 
     #a number. move numbers to the back
     while string[0].isdigit():
         string = string[1:] + string[0]
@@ -181,7 +168,7 @@ def normalize_name(string):
     e_name = ''
     #twice
     end_game = ''
-    #start a loop to see if string characters are python-identifer compliant
+    #start a loop to see if string characters are python identifer compliant
     for char in f_name:
         #include space so we don't have random underscores at the beginning or end if original string input includes
         #invalid characters for python-identifier compliance at the beginning or end of original input and spaces
@@ -199,7 +186,7 @@ def normalize_name(string):
             end_game += char
         #check to see if character is a space
         if char == ' ':
-            #add an underscore to the second string variable in any space's stead
+            #add an underscore to the second string variable in a space's stead
             end_game += '_'
     #return the python-identifier-compliant second string variable value
     return end_game
@@ -209,7 +196,6 @@ if __name__ == '__main__':
     print(normalize_name('Name'))
     print(normalize_name('% Completed'))
     print(normalize_name('1man'))
-
 
 
 
@@ -237,10 +223,8 @@ cumulative_sum(c)
 
 
 
-
 #Mason's personal functions
 #import mason_functions as mf
-
 
 
 
@@ -261,7 +245,6 @@ pull_an_integer_from_a_string_with_one_integer('Yo! You have 38 unread messages!
 
 
 
-
 #get an average of one list (take one paramater and return a float)
 def average(n):
     return sum(n) / len(n)
@@ -272,30 +255,16 @@ average(a)
 
 
 
-
-#first_to_last moves the first item in an sequence to the last position of a sequence (input a list and ouput a list)
+#move the first item in an sequence to the last position of a sequence (take one parameter and return a list)
 def first_to_last(s):
     #assign a variable to the first item of the sequence
     x = s[0]
-    #define the sequence starting with the second item and add the first item to the end of the sequence
+    #assign a variable to the sequence starting with the second item and add the first item to the end of the sequence
     s = s[1:] + [x]
     #return the new sequence with the first item at the end and the second item in front
     return s
 
-first_to_last([1, 2, 3, 4, 5])
-
-
-
-
-#last_to_first takes in a single parameter, an ordered list, and returns a list with the last element upfront
-def last_to_first(sequence):
-    #assign a variable to the last item of the sequence
-    x = sequence[-1]
-    #define the sequence as the last item in addition to all other items in the sequence
-    sequence = [x] + sequence[0:]
-    #return the new list
-    return sequence
-
+first_to_last([1, 2, 3, 4, 5,])
 
 
 
@@ -335,7 +304,6 @@ if __name__ == '__main__':
 
 
 
-
 #count some vowels m8
 def count_vowels(string):
     count = 0
@@ -345,7 +313,6 @@ def count_vowels(string):
     return count
 
 count_vowels('Hadouken!')
-
 
 
 
@@ -363,7 +330,6 @@ count_consonants('Shoryuken!')
 
 
 
-
 #Is it true, Brutus? Ay tu?
 def count_Trues(list):
     count = 0
@@ -377,7 +343,6 @@ count_Trues([True, False, True, False, True, False, True])
 
 
 
-
 #Thank you, Ryan Orsinger
 def get_db_url(db_name):
     from env import host, user, password
@@ -386,12 +351,9 @@ def get_db_url(db_name):
 
 
 
-
 #is it 3?
 def is_three(x):
-    if x == 3 or x == '3':
-        return True
-    elif x.lower() == 'three':
+    if x == 3 or x == '3' or x.lower() == 'three':
         return True
     else:
         return False
@@ -401,3 +363,89 @@ if __name__ == '__main__':
     print(is_three(3))
 
 
+
+
+#I would like to see these numbers more clearly-- faster
+
+#add_commas defines a single parameter, x (a float or integer up to 13 digits long), and returns a string
+def add_commas(x):
+    
+    #if there are 3 digits or less, we don't need to add commas
+    if len(str(x)) < 4:
+        return str(x)
+    
+    #if there are 4 digits, return the string appropriately formatted
+    elif len(str(x)) == 4:
+        return str(x)[:1] + ',' + str(x)[1:]
+    
+    #else if there are 5 digits...
+    elif len(str(x)) == 5:
+        return str(x)[:2] + ',' + str(x)[2:]
+    
+    #what's here?
+    elif len(str(x)) == 6:
+        return str(x)[:3] + ',' + str(x)[3:]
+    
+    #what's here?
+    elif len(str(x)) == 7:
+        return str(x)[:1] + ',' + str(x)[1:4] + ',' + str(x)[4:]
+    
+    #what's here?
+    elif len(str(x)) == 8:
+        return str(x)[:2] + ',' + str(x)[2:5] + ',' + str(x)[5:]
+    
+    #if it's a kitty
+    elif len(str(x)) == 9:
+        return str(x)[:3] + ',' + str(x)[3:6] + ',' + str(x)[6:]
+    
+    #if it's in the billions
+    elif len(str(x)) == 10:
+        return str(x)[:1] + ',' + str(x)[1:4] + ',' + str(x)[4:7] + ',' + str(x)[7:]
+    
+    #if it's in the tens of billions
+    elif len(str(x)) == 11:
+        return str(x)[:2] + ',' + str(x)[2:5] + ',' + str(x)[5:8] + ',' + str(x)[8:]
+    
+    #if it's in the hundreds of billions
+    elif len(str(x)) == 12:
+        return str(x)[:3] + ',' + str(x)[3:6] + ',' + str(x)[6:9] + ',' + str(x)[9:]
+    
+    #lookifanythingmakesitpast the trillions, I am done adding commas
+    elif len(str(x)) == 13:
+        return str(x)[:1] + ',' + str(x)[1:4] + ',' + str(x)[4:7] + ',' + str(x)[7:10] + ',' + str(x)[10:]
+
+#testing, attention please
+if __name__ == '__main__':
+    print(add_commas(100))
+    print(add_commas(1000))
+    print(add_commas(10000))
+    print(add_commas(100000))
+    print(add_commas(1000000))
+    print(add_commas(10000000))
+    print(add_commas(100000000))
+    print(add_commas(1000000000))
+    print(add_commas(10000000000))
+    print(add_commas(100000000000))
+    print(add_commas(1000000000000))
+
+    
+    
+#reference for splitting data    
+def split_data(df):
+    '''
+    Takes in a dataset and returns the train, validate, and test subset dataframes.
+    Dataframe size for my test set is .2 or 20% of the original data. 
+    Validate data is 30% of my training set, which is 24% of the original data. 
+    Training data is 56% of the original data.
+    '''
+    #import splitter
+    from sklearn.model_selection import train_test_split
+    
+    #get my training and test data sets defined, stratify my target variable
+    train, test = train_test_split(df, test_size = .2, random_state = 421)
+    
+    #get my validate set from the training set, stratify target variable again
+    train, validate = train_test_split(train, test_size = .3, random_state = 421)
+    
+    #return the 3 dataframes
+    return train, validate, test

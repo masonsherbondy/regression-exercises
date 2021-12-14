@@ -20,7 +20,7 @@ def plot_residuals(y, y_hat):
     #plot a dotted horizontal line at 0 to help visualize residual values
     plt.axhline(y = 0, ls = ':', color = 'firebrick')
     
-    #disambiguation
+    #clarity
     plt.title('Residuals From Predicted Values', pad = 7, size = 17, color = 'slategray')
     plt.xlabel('Actual Value', size = 15)
     plt.ylabel('Residual', size = 15, color = 'slategray')
