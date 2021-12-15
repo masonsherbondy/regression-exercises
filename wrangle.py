@@ -10,6 +10,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 import mason_functions as mf
+import mine_scaler as ms
 
 def acquire_zillow():
     #define my sql query into the relational database
@@ -79,6 +80,11 @@ def prep_zillow():
     #I can afford to drop 900 rows in a dataset of over a million records
     df = df[df.year_built.notnull()]
 
+    #reformat existing values to reduce noise when looking at the dataframe
+    df.fips_id = df.fips_id.astype(int)
+    df.square_footage = df.square_footage.astype(int)
+    df.year_built = df.year_built.astype(int)
+
     #engineer feature (this is target leakage)
     df['tax_ratio'] = df.tax_value / df.taxes
 
@@ -108,7 +114,7 @@ def wrangle_zillow():
 
 
 
-def scale_data(train, validate, test, quant_vars):
+def scale_data_1(train, validate, test, quant_vars):
     #create the object
     scaler = sklearn.preprocessing.RobustScaler()
 
@@ -121,9 +127,159 @@ def scale_data(train, validate, test, quant_vars):
     test_scaled = scaler.transform(test[quant_vars])
 
     #add columns
-    train[['tenure_scaled', 'monthly_charges_scaled', 'total_charges_scaled']] = train_scaled
-    validate[['tenure_scaled', 'monthly_charges_scaled', 'total_charges_scaled']] = validate_scaled
-    test[['tenure_scaled', 'monthly_charges_scaled', 'total_charges_scaled']] = test_scaled
+    train[[f'{quant_vars[0]}_scaled']] = train_scaled
+    validate[[f'{quant_vars[0]}_scaled']] = validate_scaled
+    test[[f'{quant_vars[0]}_scaled']] = test_scaled
 
+    #return dataframes with added columns
+    return train, validate, test
+
+
+
+
+def scale_data_2(train, validate, test, quant_vars):
+    #create the object
+    scaler = sklearn.preprocessing.RobustScaler()
+
+    #fit the object
+    scaler.fit(train[quant_vars])
+
+    #use the object
+    train_scaled = scaler.transform(train[quant_vars])
+    validate_scaled = scaler.transform(validate[quant_vars])
+    test_scaled = scaler.transform(test[quant_vars])
+
+    #add columns
+    train[[f'{quant_vars[0]}_scaled', f'{quant_vars[1]}_scaled']] = train_scaled
+    validate[[f'{quant_vars[0]}_scaled', f'{quant_vars[1]}_scaled']] = validate_scaled
+    test[[f'{quant_vars[0]}_scaled', f'{quant_vars[1]}_scaled']] = test_scaled
+
+    #return dataframes with added columns
+    return train, validate, test
+
+
+
+def scale_data_3(train, validate, test, quant_vars):
+    #create the object
+    scaler = sklearn.preprocessing.RobustScaler()
+
+    #fit the object
+    scaler.fit(train[quant_vars])
+
+    #use the object
+    train_scaled = scaler.transform(train[quant_vars])
+    validate_scaled = scaler.transform(validate[quant_vars])
+    test_scaled = scaler.transform(test[quant_vars])
+
+    #add columns
+    train[[f'{quant_vars[0]}_scaled', f'{quant_vars[1]}_scaled', f'{quant_vars[2]}_scaled']] = train_scaled
+    validate[[f'{quant_vars[0]}_scaled', f'{quant_vars[1]}_scaled', f'{quant_vars[2]}_scaled']] = validate_scaled
+    test[[f'{quant_vars[0]}_scaled', f'{quant_vars[1]}_scaled', f'{quant_vars[2]}_scaled']] = test_scaled
+
+    #return dataframes with added columns
     return train, validate, test
     
+
+def scale_data_4(train, validate, test, quant_vars):
+    #create the object
+    scaler = sklearn.preprocessing.RobustScaler()
+
+    #fit the object
+    scaler.fit(train[quant_vars])
+
+    #use the object
+    train_scaled = scaler.transform(train[quant_vars])
+    validate_scaled = scaler.transform(validate[quant_vars])
+    test_scaled = scaler.transform(test[quant_vars])
+
+    #add columns
+    train[[f'{quant_vars[0]}_scaled', f'{quant_vars[1]}_scaled', f'{quant_vars[2]}_scaled', f'{quant_vars[3]}_scaled']] = train_scaled
+    validate[[f'{quant_vars[0]}_scaled', f'{quant_vars[1]}_scaled', f'{quant_vars[2]}_scaled', f'{quant_vars[3]}_scaled']] = validate_scaled
+    test[[f'{quant_vars[0]}_scaled', f'{quant_vars[1]}_scaled', f'{quant_vars[2]}_scaled', f'{quant_vars[3]}_scaled']] = test_scaled
+
+    #return dataframes with added columns
+    return train, validate, test
+    
+
+def scale_data_5(train, validate, test, quant_vars):
+    #create the object
+    scaler = sklearn.preprocessing.RobustScaler()
+
+    #fit the object
+    scaler.fit(train[quant_vars])
+
+    #use the object
+    train_scaled = scaler.transform(train[quant_vars])
+    validate_scaled = scaler.transform(validate[quant_vars])
+    test_scaled = scaler.transform(test[quant_vars])
+
+    #add columns
+    train[[f'{quant_vars[0]}_scaled', f'{quant_vars[1]}_scaled', f'{quant_vars[2]}_scaled', f'{quant_vars[3]}_scaled', f'{quant_vars[4]}_scaled']]= train_scaled
+    validate[[f'{quant_vars[0]}_scaled', f'{quant_vars[1]}_scaled', f'{quant_vars[2]}_scaled', f'{quant_vars[3]}_scaled', f'{quant_vars[4]}_scaled']] = validate_scaled
+    test[[f'{quant_vars[0]}_scaled', f'{quant_vars[1]}_scaled', f'{quant_vars[2]}_scaled', f'{quant_vars[3]}_scaled', f'{quant_vars[4]}_scaled']] = test_scaled
+
+    #return dataframes with added columns
+    return train, validate, test
+
+
+def scale_data_6(train, validate, test, quant_vars):
+    #create the object
+    scaler = sklearn.preprocessing.RobustScaler()
+
+    #fit the object
+    scaler.fit(train[quant_vars])
+
+    #use the object
+    train_scaled = scaler.transform(train[quant_vars])
+    validate_scaled = scaler.transform(validate[quant_vars])
+    test_scaled = scaler.transform(test[quant_vars])
+
+    #add columns
+    train[[f'{quant_vars[0]}_scaled', f'{quant_vars[1]}_scaled', f'{quant_vars[2]}_scaled', f'{quant_vars[3]}_scaled', f'{quant_vars[4]}_scaled', f'{quant_vars[5]}_scaled']]= train_scaled
+    validate[[f'{quant_vars[0]}_scaled', f'{quant_vars[1]}_scaled', f'{quant_vars[2]}_scaled', f'{quant_vars[3]}_scaled', f'{quant_vars[4]}_scaled', f'{quant_vars[5]}_scaled']] = validate_scaled
+    test[[f'{quant_vars[0]}_scaled', f'{quant_vars[1]}_scaled', f'{quant_vars[2]}_scaled', f'{quant_vars[3]}_scaled', f'{quant_vars[4]}_scaled', f'{quant_vars[5]}_scaled']] = test_scaled
+
+    #return dataframes with added columns
+    return train, validate, test
+
+
+def scale_data_7(train, validate, test, quant_vars):
+    #create the object
+    scaler = sklearn.preprocessing.RobustScaler()
+
+    #fit the object
+    scaler.fit(train[quant_vars])
+
+    #use the object
+    train_scaled = scaler.transform(train[quant_vars])
+    validate_scaled = scaler.transform(validate[quant_vars])
+    test_scaled = scaler.transform(test[quant_vars])
+
+    #add columns
+    train[[f'{quant_vars[0]}_scaled', f'{quant_vars[1]}_scaled', f'{quant_vars[2]}_scaled', f'{quant_vars[3]}_scaled', f'{quant_vars[4]}_scaled', f'{quant_vars[5]}_scaled', f'{quant_vars[6]}_scaled']]= train_scaled
+    validate[[f'{quant_vars[0]}_scaled', f'{quant_vars[1]}_scaled', f'{quant_vars[2]}_scaled', f'{quant_vars[3]}_scaled', f'{quant_vars[4]}_scaled', f'{quant_vars[5]}_scaled', f'{quant_vars[6]}_scaled']] = validate_scaled
+    test[[f'{quant_vars[0]}_scaled', f'{quant_vars[1]}_scaled', f'{quant_vars[2]}_scaled', f'{quant_vars[3]}_scaled', f'{quant_vars[4]}_scaled', f'{quant_vars[5]}_scaled', f'{quant_vars[6]}_scaled']] = test_scaled
+
+    #return dataframes with added columns
+    return train, validate, test
+
+#let's stop with 8 features
+def scale_data_8(train, validate, test, quant_vars):
+    #create the object
+    scaler = sklearn.preprocessing.RobustScaler()
+
+    #fit the object
+    scaler.fit(train[quant_vars])
+
+    #use the object
+    train_scaled = scaler.transform(train[quant_vars])
+    validate_scaled = scaler.transform(validate[quant_vars])
+    test_scaled = scaler.transform(test[quant_vars])
+
+    #add columns
+    train[[f'{quant_vars[0]}_scaled', f'{quant_vars[1]}_scaled', f'{quant_vars[2]}_scaled', f'{quant_vars[3]}_scaled', f'{quant_vars[4]}_scaled', f'{quant_vars[5]}_scaled', f'{quant_vars[6]}_scaled', f'{quant_vars[7]}_scaled']]= train_scaled
+    validate[[f'{quant_vars[0]}_scaled', f'{quant_vars[1]}_scaled', f'{quant_vars[2]}_scaled', f'{quant_vars[3]}_scaled', f'{quant_vars[4]}_scaled', f'{quant_vars[5]}_scaled', f'{quant_vars[6]}_scaled', f'{quant_vars[7]}_scaled']] = validate_scaled
+    test[[f'{quant_vars[0]}_scaled', f'{quant_vars[1]}_scaled', f'{quant_vars[2]}_scaled', f'{quant_vars[3]}_scaled', f'{quant_vars[4]}_scaled', f'{quant_vars[5]}_scaled', f'{quant_vars[6]}_scaled', f'{quant_vars[7]}_scaled']] = test_scaled
+
+    #return dataframes with added columns
+    return train, validate, test

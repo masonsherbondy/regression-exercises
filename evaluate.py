@@ -23,7 +23,31 @@ def plot_residuals(y, y_hat):
     #clarity
     plt.title('Residuals From Predicted Values', pad = 7, size = 17, color = 'slategray')
     plt.xlabel('Actual Value', size = 15)
-    plt.ylabel('Residual', size = 15, color = 'slategray')
+    plt.ylabel('Residual', size = 15, color = 'slategray');
+
+
+
+
+def plot_joint_residuals(y, y_hat):
+
+    #calculate residuals
+    residuals = y - y_hat
+
+    #create figure
+    plt.figure(figsize = (8, 5))
+
+    #plot residuals
+    sns.jointplot(y, residuals, color = 'slategray')
+
+    #plot a dotted horizontal line at 0 to help visualize residual values
+    plt.axhline(y = 0, ls = ':', color = 'firebrick')
+
+    #clarity
+    plt.title('Residuals From Predicted Values', pad = 88, size = 17, color = 'indigo')
+    plt.xlabel('Actual Value', size = 15)
+    plt.ylabel('Residual', size = 15, color = 'slategray');
+
+
 
 
 def regression_errors(y, y_hat):
@@ -60,6 +84,8 @@ def regression_errors(y, y_hat):
     })
 
 
+
+
 def baseline_mean_errors(y):
     #determine baseline
     baseline = y.mean()
@@ -83,6 +109,8 @@ def baseline_mean_errors(y):
         'MSE': MSE, 
         'RMSE': RMSE
     })
+
+
 
 
 def better_than_baseline(y, y_hat):
@@ -124,3 +152,40 @@ def better_than_baseline(y, y_hat):
     
     #return bool True if mine model is better; return bool False if no
     return RMSE < RMSE_baseline
+
+
+
+def compare_train_validate_errors(y_train, y_validate, train_pred, validate_pred):
+    #calculate residuals
+    residuals = y_train - train_pred
+    
+    #residuals squared
+    residuals_squared = residuals ** 2
+    
+    #sum of squared errors
+    train_SSE = residuals_squared.sum()
+    
+    #mean of squared errors
+    train_MSE = train_SSE / len(y_train)
+    
+    #root of mean of squared errors
+    train_RMSE = train_MSE ** (1/2)
+    
+    ### calculate residuals for validate
+    residuals = y_validate - validate_pred
+    
+    #residuals squared
+    residuals_squared = residuals ** 2
+    
+    #sum of squared errors
+    validate_SSE = residuals_squared.sum()
+    
+    #mean of squared errors
+    validate_MSE = validate_SSE / len(y_validate)
+    
+    #root of mean of squared errors
+    validate_RMSE = validate_MSE ** (1/2)
+    
+    print(f'Train RMSE: {round(train_RMSE, 2)}')
+    print(f'Validate RMSE: {round(validate_RMSE, 2)}')
+    print(f'Difference: {round(validate_RMSE - train_RMSE, 2)}')
